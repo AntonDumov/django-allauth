@@ -37,6 +37,11 @@ from ..utils import (
     import_attribute,
 )
 
+if "mailer" in settings.INSTALLED_APPS:
+    from mailer import send_mail
+else:
+    from django.core.mail import send_mail
+
 
 class DefaultAccountAdapter(object):
 
@@ -134,7 +139,7 @@ class DefaultAccountAdapter(object):
 
     def send_mail(self, template_prefix, email, context):
         msg = self.render_mail(template_prefix, email, context)
-        msg.send()
+        send_mail(msg.subject, msg.body, msg.from_email, msg.to)
 
     def get_login_redirect_url(self, request):
         """
