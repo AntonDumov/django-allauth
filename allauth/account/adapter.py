@@ -139,7 +139,7 @@ class DefaultAccountAdapter(object):
 
     def send_mail(self, template_prefix, email, context):
         msg = self.render_mail(template_prefix, email, context)
-        print('Send Mail to ' + msg.to)
+        print('Send Mail to ' + str(msg.to))
         send_mail(msg.subject, msg.body, msg.from_email, msg.to)
 
     def get_login_redirect_url(self, request):
